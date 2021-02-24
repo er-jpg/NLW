@@ -9,6 +9,8 @@ defmodule RocketpayWeb.Router do
     pipe_through :api
 
     get "/:filename", WelcomeController, :index
+    post "/users", UserController, :create
+
     get "/string/:string", WelcomeController, :simplify_string
   end
 

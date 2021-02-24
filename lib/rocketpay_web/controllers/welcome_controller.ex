@@ -5,14 +5,14 @@ defmodule RocketpayWeb.WelcomeController do
 
   def index(conn, %{"filename" => filename}) do
     filename
-    |> Numbers.sum_from_file
+    |> Numbers.sum_from_file()
     |> handle_response(conn)
   end
 
   def simplify_string(conn, %{"string" => string}) do
     string
-    |> String.trim
-    |> String.downcase
+    |> String.trim()
+    |> String.downcase()
     |> handle_response(conn)
   end
 
