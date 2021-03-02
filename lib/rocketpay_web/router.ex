@@ -1,8 +1,14 @@
 defmodule RocketpayWeb.Router do
   use RocketpayWeb, :router
 
+  import Plug.BasicAuth
+
   pipeline :api do
     plug :accepts, ["json"]
+  end
+
+  pipeline :auth do
+    plug :basic_auth, Application.compile_env(:rocket_pay, :basic_auth)
   end
 
   scope "/api", RocketpayWeb do
@@ -12,6 +18,16 @@ defmodule RocketpayWeb.Router do
     post "/users", UserController, :create
 
     get "/string/:string", WelcomeController, :simplify_string
+
+    # post "/accounts/:id/deposit", AccountController, :deposit
+    # post "/accounts/:id/withdraw", AccountController, :withdraw
+    # post "/accounts/transaction", AccountController, :transaction
+  end
+
+  scope "/api", RocketpayWeb do
+    # Auth error with params ????????
+    # pipe_through [:api, :auth]
+    pipe_through :api
 
     post "/accounts/:id/deposit", AccountController, :deposit
     post "/accounts/:id/withdraw", AccountController, :withdraw

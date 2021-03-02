@@ -25,6 +25,13 @@ defmodule RocketpayWeb.AccountController do
   end
 
   def transaction(conn, params) do
+    # Example of task started
+    # Task.start(fn -> Rocketpay.transaction(params) end)
+
+    # conn
+    #   |> put_status(:no_content)
+    #   |> text("")
+
     with {:ok, %TransactionResponse{} = transaction} <-
            Rocketpay.transaction(params) do
       conn
